@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8d241e2-98a1-44bc-8a3a-663751d05bb6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/rGraphicsSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rGraphicsSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/rSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hw1/hw1.R" beforeDir="false" afterPath="$PROJECT_DIR$/hw1/hw1.R" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +48,7 @@
       <workItem from="1586337814382" duration="306000" />
       <workItem from="1586338183453" duration="318000" />
       <workItem from="1586338523601" duration="170000" />
+      <workItem from="1586338708278" duration="974000" />
     </task>
     <servers />
   </component>

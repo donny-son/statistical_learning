@@ -95,7 +95,7 @@ while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) 
   }
 
   if (n_iterations == 1) {
-    cat('First step is 0.')
+    cat('First step is 0.' , '\n')
   } else if (n_iterations == 2) {
     cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', 'Parallel with x1', '\n')
     draw.radial.line(0, vector_length(y_fit), center = c(0,0))
@@ -103,7 +103,7 @@ while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) 
     draw_line_arc(x1, y_fit, n_iterations)
   } else if (n_iterations == 6) {
     draw_line_arc(x1, y_fit, n_iterations)
-  } else if (n_iterations == 30) {
+  } else if (n_iterations == 9) {
     draw_line_arc(x1, y_fit, n_iterations)
   }
   n_iterations <- n_iterations + 1
