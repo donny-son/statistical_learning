@@ -23,7 +23,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -36,7 +36,7 @@
       <option name="presentableId" value="Default" />
       <updated>1586313431792</updated>
       <workItem from="1586313433829" duration="539000" />
-      <workItem from="1586313977033" duration="30000" />
+      <workItem from="1586313977033" duration="144000" />
     </task>
     <servers />
   </component>
@@ -49,9 +49,9 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="379" y="175" key="SettingsEditor" timestamp="1586314006325">
+    <state x="379" y="175" key="SettingsEditor" timestamp="1586314104514">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="379" y="175" key="SettingsEditor/-1920.-290.1920.1057/0.23.1680.1027@0.23.1680.1027" timestamp="1586314006325" />
+    <state x="379" y="175" key="SettingsEditor/-1920.-290.1920.1057/0.23.1680.1027@0.23.1680.1027" timestamp="1586314104514" />
   </component>
 </project>
