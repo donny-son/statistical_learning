@@ -1,4 +1,6 @@
 library(plotrix)
+library(zeallot)
+
 set.seed(1)
 data_generation <- function () {
       n=100
@@ -10,7 +12,7 @@ data_generation <- function () {
       x2 <<- xx2-mean(xx2)
       y <<- yy-mean(yy)
 }
-
+data_generation()
 dotproduct <- function(vector1, vector2) {
   return(sum(vector1 * vector2))
 }
@@ -38,16 +40,14 @@ text(pseudo_x1[1] + 0.2, pseudo_x1[2] + 0.3, expression(x[1]),cex=1.5)
 pseudo_x2 = c(4.15, 8.6)
 draw.radial.line(0,vector_length(x2),center=c(0,0), angle = angle(x1, x2))
 # arrows(0,0, pseudo_x2[1], pseudo_x2[2] )
-text(pseudo_x2[1] + 1, sudo_x2[2] + 1.5, expression(x[2]),cex=1.5)
+text(pseudo_x2[1] + 1, pseudo_x2[2] + 1.5, expression(x[2]),cex=1.5)
 
 # drawing arc
 draw.arc(0,0,1, angle2 = angle(x1, x2))
 text(2.7,1, angle(x1,x2),cex=1.5)
 
-# import in order to use chained assignments
-library(zeallot)
-set.seed(1)
 
+# 알고리듬
 data_generation()
 
 # bind as matrix for operations
@@ -79,9 +79,5 @@ while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) 
   }
   n_iterations <- n_iterations + 1
 }
-cat('총 iteration 횟수는', n_iterations)
-
+cat('Total iteration: ', n_iterations, '\n')
 cat('Intercept: ', beta[1], ', beta_1: ', beta[2], ', beta_2: ', beta[3])
-
-lse_result = lm(y~x1+x2)
-coef(lse_result)
