@@ -1,15 +1,13 @@
 # author : 2020311198 Dongook Son 손동욱
 # 통계적학습이론 과제1
 
-library(plotrix)
-library(zeallot)
-
 ################
 # function 정의 #
 ################
 
 set.seed(1)
 data_generation <- function () {
+      rm(list = ls())
       n=100
       xx1=rnorm(n)
       xx2=(xx1+rnorm(n))/sqrt(2)
@@ -20,6 +18,7 @@ data_generation <- function () {
       y <<- yy-mean(yy)
 }
 data_generation()
+library(plotrix)
 
 dotproduct <- function(vector1, vector2) {
   return(sum(vector1 * vector2))
@@ -60,6 +59,7 @@ draw.arc(0,0,0.5, angle2 = angle(x1, x2))
 ############################
 
 data_generation()
+library(zeallot)
 
 # maintain dimensionality
 X <- cbind(x1, x2)
@@ -71,7 +71,14 @@ beta <- rep(0, p+1)
 threshold <- 0.0000001
 
 # Count iterations
-n_iterations <- 0
+n_iterations <- 1
+
+draw_line_arc <- function (base_vector, fitted_vector, n_iterations) {
+  angle <- angle(base_vector, fitted_vector)
+  cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(fitted_vector), ', angle between x1: ', angle, '\n')
+  draw.radial.line(0, vector_length(fitted_vector), center = c(0,0), angle = angle)
+  draw.arc(0,0, n_iterations, angle2 = angle)
+}
 
 # Iterate until convergence
 while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) {
@@ -86,29 +93,23 @@ while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) 
     y_fit <- beta[1] + beta[2] * x1 + beta[3] * x2
     residual <- y - y_fit
   }
-  n_iterations <- n_iterations + 1
-  if (n_iterations == 2) {
-    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
-    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
-    draw.arc(0,0,1, angle2 = angle(x1, y_fit))
+
+  if (n_iterations == 1) {
+    cat('First step is 0.')
+  } else if (n_iterations == 2) {
+    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', 'Parallel with x1', '\n')
+    draw.radial.line(0, vector_length(y_fit), center = c(0,0))
   } else if (n_iterations == 3) {
-    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
-    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
-    draw.arc(0,0,1.5, angle2 = angle(x1, y_fit))
+    draw_line_arc(x1, y_fit, n_iterations)
   } else if (n_iterations == 6) {
-    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
-    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
-    draw.arc(0,0,2, angle2 = angle(x1, y_fit))
+    draw_line_arc(x1, y_fit, n_iterations)
   } else if (n_iterations == 30) {
-    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
-    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
-    draw.arc(0,0,2.5, angle2 = angle(x1, y_fit))
+    draw_line_arc(x1, y_fit, n_iterations)
   }
+  n_iterations <- n_iterations + 1
 }
-cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
-draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
-draw.arc(0,0,3, angle2 = angle(x1, y_fit))
-cat('Total iteration: ', n_iterations, '\n')
+draw_line_arc(x1, y_fit, n_iterations)
+
 cat('Intercept: ', beta[1], ', beta_1: ', beta[2], ', beta_2: ', beta[3] ,'\n')
 
 # Validation
