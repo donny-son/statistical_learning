@@ -80,15 +80,17 @@ while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) 
   }
   n_iterations <- n_iterations + 1
   if (n_iterations == 2) {
-    cat('Iteration: ', n_iterations, 'y_fit length: ', vector_length(y_fit), 'angle between x1: ', angle(x1, y_fit))
+    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
   } else if (n_iterations == 3) {
-    cat('Iteration: ', n_iterations, 'y_fit length: ', vector_length(y_fit), 'angle between x1: ', angle(x1, y_fit))
+    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
   } else if (n_iterations == 6) {
-    cat('Iteration: ', n_iterations, 'y_fit length: ', vector_length(y_fit), 'angle between x1: ', angle(x1, y_fit))
+    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
+  } else if (n_iterations == 45) {
+    cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
   }
 }
 cat('Total iteration: ', n_iterations, '\n')
-cat('Intercept: ', beta[1], ', beta_1: ', beta[2], ', beta_2: ', beta[3])
+cat('Intercept: ', beta[1], ', beta_1: ', beta[2], ', beta_2: ', beta[3] ,'\n')
 
 # Validation
 validation_model <- lm(y ~ x1 + x2)
