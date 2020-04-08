@@ -45,6 +45,7 @@
       <workItem from="1586313433829" duration="539000" />
       <workItem from="1586313977033" duration="144000" />
       <workItem from="1586314124528" duration="3926000" />
+      <workItem from="1586318790107" duration="726000" />
     </task>
     <servers />
   </component>
@@ -61,5 +62,9 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="379" y="175" key="SettingsEditor/-1920.-290.1920.1057/0.23.1680.1027@0.23.1680.1027" timestamp="1586314345577" />
+    <state width="840" height="513" key="XDebugger.FullValuePopup" timestamp="1586319073706">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="840" height="513" key="XDebugger.FullValuePopup/-1920.-290.1920.1057/0.23.1680.1027@0.23.1680.1027" timestamp="1586319073706" />
   </component>
 </project>
