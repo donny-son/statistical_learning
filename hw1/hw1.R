@@ -1,14 +1,15 @@
 library(plotrix)
 set.seed(1)
+data_generation <- function () {
+      n=100
+      xx1=rnorm(n)
+      xx2=(xx1+rnorm(n))/sqrt(2)
+      yy=xx1+xx2/2+rnorm(n)/5
 
-n=100
-xx1=rnorm(n)
-xx2=(xx1+rnorm(n))/sqrt(2)
-yy=xx1+xx2/2+rnorm(n)/5
-
-x1=xx1-mean(xx1)
-x2=xx2-mean(xx2)
-y=yy-mean(yy)
+      x1 <<- xx1-mean(xx1)
+      x2 <<- xx2-mean(xx2)
+      y <<- yy-mean(yy)
+}
 
 dotproduct <- function(vector1, vector2) {
   return(sum(vector1 * vector2))
@@ -43,80 +44,44 @@ text(pseudo_x2[1] + 1, sudo_x2[2] + 1.5, expression(x[2]),cex=1.5)
 draw.arc(0,0,1, angle2 = angle(x1, x2))
 text(2.7,1, angle(x1,x2),cex=1.5)
 
+# import in order to use chained assignments
+library(zeallot)
+set.seed(1)
 
+data_generation()
 
-# euijoon
-b0 = 0
-b1 = 0
-b2 = 0
-fit = b0+b1*x1+b2*x2
-res = y - fit
-cor(res,x1)
-cor(res,x2)
+# bind as matrix for operations
+X <- cbind(x1, x2)
 
-fitvector = c()
+# maintain dimensions
+c(n, p) %<-% dim(X)
 
-while (abs(cor(res,x1))>1e-2 | abs(cor(res,x2))>1e-2){
+# initial residual and beta
+residual <- y
+beta <- rep(0, p+1)
+threshold <- 0.000001
 
-fit = b0+b1*x1+b2*x2
-res = y - fit
-fitvector = cbind(fitvector,fit)
+# Count iterations
+n_iterations <- 0
 
-if (abs(cor(res,x1))>abs(cor(res,x2))){
-  v = x1
-  b1 = b1 + as.numeric(lm(res~v)$coef[2])
-}else{
-  v = x2
-  b2 = b2 + as.numeric(lm(res~v)$coef[2])
-}
-
-cat("b1 is", b1, 'and', "b2 is", b2, '\n')
-}
-
-cor(res,x1)
-cor(res,x2)
-
-fitvector
-
-for (j in 1:ncol(fitvector)){
-  print(angle(x1, fitvector[,j]))
-}
-
-
-# bohyeon
-ybar = mean(y)
-beta_hat = c(ybar, 0, 0)
-residual = y - ybar
-
-a = 1
-while (! ( (-1e-10 < cor(residual, x1) & cor(residual, x1) < 1e-10) & (-1e-10 < cor(residual, x2) & cor(residual, x2) < 1e-10))){
+# Iterate until convergence
+while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) {
   if (abs(cor(residual, x1)) > abs(cor(residual, x2))){
-    model = lm(residual~x1)
-    coef = as.vector(model$coefficients)
-    beta_hat = beta_hat + c(coef[1], coef[2], 0)
-    fitted_values = beta_hat[1] + beta_hat[2] * x1 + beta_hat[3] * x2
-    residual = y - fitted_values
+    model <- lm(residual~x1)
+    beta <- beta + c(model$coefficients[1], model$coefficients[2], 0)
+    y_fit <- beta[1] + beta[2] * x1 + beta[3] * x2
+    residual <- y - y_fit
+  } else {
+    model <- lm(residual~x2)
+    beta <- beta + c(model$coefficients[1], 0, model$coefficients[2])
+    y_fit <- beta[1] + beta[2] * x1 + beta[3] * x2
+    residual <- y - y_fit
   }
-  else if (abs(cor(residual, x1)) < abs(cor(residual, x2))){
-    model = lm(residual~x2)
-    coef = as.vector(model$coefficients)
-    beta_hat = beta_hat + c(coef[1], 0, coef[2])
-    fitted_values = beta_hat[1] + beta_hat[2] * x1 + beta_hat[3] * x2
-    residual = y - fitted_values
-  }
-  a = a + 1
+  n_iterations <- n_iterations + 1
 }
-cat('총 iteration 횟수는', a)
+cat('총 iteration 횟수는', n_iterations)
 
-cat('iteration을 통해 수렴한 계수는 다음과 같다.', beta_hat)
+cat('Intercept: ', beta[1], ', beta_1: ', beta[2], ', beta_2: ', beta[3])
 
 lse_result = lm(y~x1+x2)
 coef(lse_result)
-
-# donook
-library(zeallot)
-
-X = cbind(x1, x2)
-c(n, p) %<-% dim(X)
-r <- y
-beta
