@@ -1,6 +1,10 @@
 library(plotrix)
 library(zeallot)
 
+################
+# function 정의 #
+################
+
 set.seed(1)
 data_generation <- function () {
       n=100
@@ -28,36 +32,37 @@ angle <- function(vector1, vector2) {
 
 cat("The arcos value(angle) between x1 and x2 is : ", angle(x1, x2))
 
+###################
+# Plotting x1, x2 #
+###################
+
 # Creates empty plot and variables
-plot(1,type="n",axes=F,xlim=c(-1,10),ylim=c(-1,10),xlab="",ylab="")
+plot(1,type="n",axes=F,xlim=c(-1,15),ylim=c(-1,15),xlab="",ylab="")
 
 # pseudo_X1
 pseudo_x1 = c(vector_length(x1), 0)
-# arrows(0,0,pseudo_x1[1],pseudo_x1[2])
-draw.radial.line(0, pseudo_x1[1], center = c(0,0))
+draw.radial.line(0, vector_length(x1), center = c(0,0))
 text(pseudo_x1[1] + 0.2, pseudo_x1[2] + 0.3, expression(x[1]),cex=1.5)
 
 # pseudo_X2
 pseudo_x2 = c(4.15, 8.6)
-draw.radial.line(0,vector_length(x2),center=c(0,0), angle = angle(x1, x2))
-# arrows(0,0, pseudo_x2[1], pseudo_x2[2] )
+draw.radial.line(0, vector_length(x2), center=c(0,0), angle = angle(x1, x2))
 text(pseudo_x2[1] + 1, pseudo_x2[2] + 1.5, expression(x[2]),cex=1.5)
 
 # drawing arc
-draw.arc(0,0,1, angle2 = angle(x1, x2))
-text(2.7,1, angle(x1,x2),cex=1.5)
+draw.arc(0,0,0.5, angle2 = angle(x1, x2))
 
+############################
+# Forward-stagewise 알고리듬 #
+############################
 
-# 알고리듬
 data_generation()
 
-# bind as matrix for operations
+# maintain dimensionality
 X <- cbind(x1, x2)
-
-# maintain dimensions
 c(n, p) %<-% dim(X)
 
-# initial residual and beta
+# initial residual, beta, threshold
 residual <- y
 beta <- rep(0, p+1)
 threshold <- 0.000001
@@ -81,12 +86,20 @@ while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) 
   n_iterations <- n_iterations + 1
   if (n_iterations == 2) {
     cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
+    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
+    draw.arc(0,0,1, angle2 = angle(x1, y_fit))
   } else if (n_iterations == 3) {
     cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
+    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
+    draw.arc(0,0,1.5, angle2 = angle(x1, y_fit))
   } else if (n_iterations == 6) {
     cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
+    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
+    draw.arc(0,0,2, angle2 = angle(x1, y_fit))
   } else if (n_iterations == 45) {
     cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
+    draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
+    draw.arc(0,0,2.5, angle2 = angle(x1, y_fit))
   }
 }
 cat('Total iteration: ', n_iterations, '\n')
