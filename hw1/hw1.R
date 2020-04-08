@@ -1,3 +1,6 @@
+# author : 2020311198 Dongook Son 손동욱
+# 통계적학습이론 과제1
+
 library(plotrix)
 library(zeallot)
 
@@ -65,7 +68,7 @@ c(n, p) %<-% dim(X)
 # initial residual, beta, threshold
 residual <- y
 beta <- rep(0, p+1)
-threshold <- 0.000001
+threshold <- 0.0000001
 
 # Count iterations
 n_iterations <- 0
@@ -96,12 +99,15 @@ while (abs(cor(residual, x1)) > threshold | abs(cor(residual, x2)) > threshold) 
     cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
     draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
     draw.arc(0,0,2, angle2 = angle(x1, y_fit))
-  } else if (n_iterations == 45) {
+  } else if (n_iterations == 30) {
     cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
     draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
     draw.arc(0,0,2.5, angle2 = angle(x1, y_fit))
   }
 }
+cat('Iteration: ', n_iterations, ', y_fit length: ', vector_length(y_fit), ', angle between x1: ', angle(x1, y_fit), '\n')
+draw.radial.line(0, vector_length(y_fit), center = c(0,0), angle = angle(x1, y_fit))
+draw.arc(0,0,3, angle2 = angle(x1, y_fit))
 cat('Total iteration: ', n_iterations, '\n')
 cat('Intercept: ', beta[1], ', beta_1: ', beta[2], ', beta_2: ', beta[3] ,'\n')
 

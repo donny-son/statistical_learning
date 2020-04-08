@@ -549,3 +549,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# pdf files
+hw1/hw1_2020.pdf
